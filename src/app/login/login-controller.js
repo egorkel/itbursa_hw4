@@ -31,8 +31,10 @@ angular.module('personnel')
         }
       });
 
-    $urlRouterProvider.otherwise(function ($injector, $location) {
-      $location.url('/login');
+    $urlRouterProvider.otherwise(function ($injector) {
+      $injector.invoke(function ($state) {
+        $state.go('login');
+      });
     });
   })
 ;
