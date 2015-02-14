@@ -1,2 +1,14 @@
-<div>This is dashboard page<br></div>
-<a ui-sref="login">To login</a>
+<div class="row bg-primary">
+  <div class="col-md-6">
+    <h1 style="margin-top: 10px">Список сотрудников</h1>
+  </div>
+  <div class="col-md-4 text-right">
+    <h3>{{username}}</h3>
+  </div>
+  <div class="col-md-2 text-center">
+    <button class="btn btn-default" ng-click="exit()" style="margin: 15px">Выход</button>
+  </div>
+</div>
+<div class="row">
+  <ui-view></ui-view>
+</div>

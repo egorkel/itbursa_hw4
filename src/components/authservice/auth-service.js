@@ -20,6 +20,10 @@ angular.module('personnel')
 
       logout: function () {
         $window.localStorage.setItem('username', '');
+      },
+
+      getUser: function () {
+        return $window.localStorage.getItem('username');
       }
     };
   });

@@ -1,7 +1,14 @@
 'use strict';
 
 angular.module('personnel')
-  .controller('dashboardCtrl', function () {})
+  .controller('dashboardCtrl', function ($scope, $state, authServ) {
+    $scope.username = authServ.getUser();
+
+    $scope.exit = function () {
+      authServ.logout();
+      $state.go('login');
+    }
+  })
 
   .config(function ($stateProvider) {
     $stateProvider
