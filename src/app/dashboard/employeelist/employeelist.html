@@ -1,0 +1,11 @@
+<div class="col-md-6">
+  <div ng-repeat="employee in employees">
+    <div>{{employee.name}}</div>
+    <div>{{employee.position}}</div>
+    <div>delete</div>
+  </div>
+  <button class="btn btn-primary" ng-click="add()">Добавить</button>
+</div>
+<div class="col-md-6">
+  <div ui-view></div>
+</div>

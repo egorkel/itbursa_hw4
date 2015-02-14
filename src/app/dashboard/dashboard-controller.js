@@ -8,6 +8,8 @@ angular.module('personnel')
       authServ.logout();
       $state.go('login');
     }
+
+    $state.go('dashboard.employeeList');
   })
 
   .config(function ($stateProvider) {
