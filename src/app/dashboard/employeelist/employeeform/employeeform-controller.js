@@ -12,7 +12,7 @@ angular.module('personnel')
     $scope.save = function () {
       $scope.employee.id = idGenService.getId();
       $scope.employees.push($scope.employee);
-      localStorService.updateData($scope.key, $scope.employees);
+      localStorService.updateData($scope.key, JSON.stringify($scope.employees));
       $state.go('dashboard.employeeList');
     };
   })

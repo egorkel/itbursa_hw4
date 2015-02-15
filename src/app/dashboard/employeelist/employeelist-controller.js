@@ -6,7 +6,7 @@ angular.module('personnel')
 
     localStorService.getData($scope.key).then(
       function (empList) {
-        $scope.employees = empList;
+        $scope.employees = JSON.parse(empList);
       },
       function (error) {
         $scope.employees = [];
