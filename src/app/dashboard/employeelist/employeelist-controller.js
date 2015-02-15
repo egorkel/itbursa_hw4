@@ -15,7 +15,8 @@ angular.module('personnel')
     );
 
     $scope.remove = function (employee) {
-      console.log('del button pressed');
+      $scope.employees = _.reject($scope.employees, {id: employee.id});
+      localStorService.updateData($scope.key, JSON.stringify($scope.employees));
     };
 
     $scope.add = function () {
