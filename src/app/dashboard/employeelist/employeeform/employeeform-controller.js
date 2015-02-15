@@ -1,8 +1,20 @@
 'use strict';
 
 angular.module('personnel')
-  .controller('employeeFormCtrl', function ($scope) {
-    $scope.save = function () {};
+  .controller('employeeFormCtrl', function ($scope, idGenService, localStorService, $state) {
+    $scope.employee = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      position: ''
+    };
+
+    $scope.save = function () {
+      $scope.employee.id = idGenService.getId();
+      $scope.employees.push($scope.employee);
+      localStorService.updateData($scope.key, $scope.employees);
+      $state.go('dashboard.employeeList');
+    };
   })
 
   .config(function ($stateProvider) {

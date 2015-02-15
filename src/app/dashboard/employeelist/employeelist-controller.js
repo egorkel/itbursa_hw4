@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('personnel')
-  .controller('employeeListCtrl', function ($scope, $state, getLocalService) {
-    getLocalService.getData('employeelist').then(
+  .controller('employeeListCtrl', function ($scope, $state, localStorService) {
+    $scope.key = 'employeelist';
+
+    localStorService.getData($scope.key).then(
       function (empList) {
         $scope.employees = empList;
       },
