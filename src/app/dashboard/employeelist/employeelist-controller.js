@@ -14,6 +14,10 @@ angular.module('personnel')
       }
     );
 
+    $scope.remove = function (employee) {
+      console.log('del button pressed');
+    };
+
     $scope.add = function () {
       $state.go('dashboard.employeeList.employeeForm');
     }

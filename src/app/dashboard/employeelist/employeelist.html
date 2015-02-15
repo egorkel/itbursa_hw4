@@ -1,8 +1,15 @@
 <div class="col-md-6">
-  <div ng-repeat="employee in employees">
-    <div>{{employee.lastName + ' ' + employee.firstName}}</div>
-    <div>{{employee.position}}</div>
-    <div>delete</div>
+  <div class="item" ng-repeat="employee in employees track by $index">
+    <div>
+      <h3>{{employee.lastName + ' ' + employee.firstName}}</h3>
+    </div>
+    <div>
+      <p>{{employee.position}}</p>
+    </div>
+    <div class="delete">
+      <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="remove(employee)"></button>
+    </div>
+
   </div>
   <button class="btn btn-primary" ng-click="add()">Добавить</button>
 </div>
