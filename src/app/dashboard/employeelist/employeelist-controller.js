@@ -7,9 +7,31 @@ angular.module('personnel')
     localStorService.getData($scope.key).then(
       function (empList) {
         $scope.employees = JSON.parse(empList);
+        if ($scope.employees.length) {
+          $scope.employee = _.clone($scope.employees[0]);
+        } else {
+          $scope.employee = {
+            id: '',
+            firstName: '',
+            lastName: '',
+            position: ''
+          };
+          $state.go('dashboard.employeeList.employeeForm', {
+            title: 'Создание'
+          });
+        }
       },
       function (error) {
         $scope.employees = [];
+        $scope.employee = {
+          id: '',
+          firstName: '',
+          lastName: '',
+          position: ''
+        };
+        $state.go('dashboard.employeeList.employeeForm', {
+          title: 'Создание'
+        });
         console.log(error);
       }
     );
@@ -17,7 +39,7 @@ angular.module('personnel')
     $scope.remove = function (employee) {
 
       //$state.go('dashboard.employeeList.confirm');
-      var modal = $modal.open({
+      $modal.open({
         templateUrl: 'app/dashboard/employeelist/confirmmodal/confirmmodal.html',
         controller: 'confirmModalCtrl',
         resolve: {
@@ -29,6 +51,21 @@ angular.module('personnel')
         function () {
           $scope.employees = _.reject($scope.employees, {id: employee.id});
           localStorService.updateData($scope.key, JSON.stringify($scope.employees));
+          if (employee.id === $scope.employee.id) {
+            if ($scope.employees.length) {
+              $scope.employee = _.clone($scope.employees[0]);
+            } else {
+              $scope.employee = {
+                id: '',
+                firstName: '',
+                lastName: '',
+                position: ''
+              };
+              $state.go('dashboard.employeeList.employeeForm', {
+                title: 'Создание'
+              });
+            }
+          }
         },
         function (error) {
           console.log(error);
@@ -37,8 +74,25 @@ angular.module('personnel')
     };
 
     $scope.add = function () {
-      $state.go('dashboard.employeeList.employeeForm');
-    }
+      $scope.employee = {
+        id: '',
+        firstName: '',
+        lastName: '',
+        position: ''
+      };
+      $state.go('dashboard.employeeList.employeeForm', {
+          title: 'Создание'
+        }
+      );
+    };
+
+    $scope.edit = function (employee) {
+      $scope.employee = _.clone(employee);
+      $state.go('dashboard.employeeList.employeeForm', {
+          title: 'Редактирование'
+        }
+      );
+    };
   })
 
   .config(function ($stateProvider) {
@@ -47,5 +101,15 @@ angular.module('personnel')
         templateUrl: 'app/dashboard/employeelist/employeelist.html',
         controller: 'employeeListCtrl'
       });
+  })
+
+  .run(function ($rootScope, $state) {
+    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+      if (toState.name === 'dashboard.employeeList') {
+        $state.go('dashboard.employeeList.employeeForm', {
+          title: 'Редактирование'
+        });
+      }
+    });
   })
 ;

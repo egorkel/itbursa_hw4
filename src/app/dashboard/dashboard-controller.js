@@ -7,7 +7,7 @@ angular.module('personnel')
     $scope.exit = function () {
       authServ.logout();
       $state.go('login');
-    }
+    };
 
     $state.go('dashboard.employeeList');
   })
